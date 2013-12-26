@@ -11,7 +11,19 @@ var SpeechRecognition = window.mozSpeechRecognition     ||
 var current;
     
 $(".language").on("change", function () {
-    speech.lang = $(this).val();
+    lang = $(this).val();
+});
+
+$(".start").on("click", function () {
+        
+    // new instance
+    speech = new SpeechRecognition();
+    speech.lang = lang;
+
+    // and start the speech recognition
+    startSpeechRecognition();
+
+    $(this).add(".language").hide();
 });
 
 /*
@@ -23,9 +35,6 @@ function startSpeechRecognition() {
     // settings
     speech.continuous = true;
     speech.interimResults = true;
-
-    // language
-    speech.lang = "en-US";
 
     // on start handler
     speech.onstart = function() {
@@ -199,12 +208,6 @@ function detectIfSpeechSupported() {
 
         // cool!
         supportMessage = "Cool!  Your browser supports speech recognition.  Have fun!";
-        
-        // new instance
-        speech = new SpeechRecognition();
-
-        // and start the speech recognition
-        startSpeechRecognition();
     }
     // not supported
     else {
