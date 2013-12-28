@@ -177,10 +177,11 @@ function nextTest () {
 var loading = false;
 function checkAnswer(guess) {
 
+    // trim
     guess = guess.trim();
-    
+
     // if loading, try again latter
-    if (!guess || loading) { return; }
+    if (!guess || loading || guess.length <= 2) { return; }
 
     // use levenstein algorithm to see if the answer is good
     if (levDist(guess.toUpperCase(), current.color.name[speech.lang]) < 3) {
