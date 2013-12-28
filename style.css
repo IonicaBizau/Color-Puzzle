@@ -16,10 +16,24 @@ h1.title {
 }
 
 .color-panel {
-    height: 500px;
+    padding: 110px;
+}
+
+.color-panel i.icon {
+    width: 100%;
+    font-size: 170px;
 }
 
 a i.icon {
     color: black;
     text-decoration: none;
+}
+
+.info {
+    font-size: 24px;
+}
+
+.ui.modal {
+    font-size: 30px;
+    text-align: center;
 }

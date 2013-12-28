@@ -150,7 +150,9 @@ function nextTest () {
         $(".ui.modal .header").html('<i class="smile icon"></i>');
         $(".ui.modal .content").html(messages[2][speech.lang]);
         $('.ui.modal').modal("show");
-        location = "https://github.com/IonicaBizau/Color-Puzzle";
+        setTimeout(function () {
+            location = "https://github.com/IonicaBizau/Color-Puzzle";
+        }, 1000);
         speech.stop();
         return;
     }
@@ -175,14 +177,18 @@ function nextTest () {
 var loading = false;
 function checkAnswer(guess) {
 
+    // trim
+    guess = guess.trim();
+
     // if loading, try again latter
-    if (loading) { return; }
+    if (!guess || loading || guess.length <= 2) { return; }
 
     // use levenstein algorithm to see if the answer is good
     if (levDist(guess.toUpperCase(), current.color.name[speech.lang]) < 3) {
 
         // yes, correct
-        $(".info").val(messages[0][speech.lang]);
+        $(".info").text(messages[0][speech.lang]);
+        $(".color-panel").html('<i class="smile icon"></i>');
 
         // loading true
         loading = true;
@@ -191,7 +197,7 @@ function checkAnswer(guess) {
         setTimeout(function () {
 
             // empty the textarea
-            $(".info").val("");
+            $(".info").text("");
 
             // loading false
             loading = false;
@@ -201,8 +207,11 @@ function checkAnswer(guess) {
         }, 500);
     } else {
         // incorrect answer
-        $(".info").val(messages[1][speech.lang]);
+        $(".info").text(messages[1][speech.lang]);
+        $(".color-panel").html('<i class="frown icon"></i>');
     }
+
+    $(".color-panel i.icon").stop(true).transition('tada');
 }
 
 /*
