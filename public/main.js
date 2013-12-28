@@ -150,7 +150,9 @@ function nextTest () {
         $(".ui.modal .header").html('<i class="smile icon"></i>');
         $(".ui.modal .content").html(messages[2][speech.lang]);
         $('.ui.modal').modal("show");
-        location = "https://github.com/IonicaBizau/Color-Puzzle";
+        setTimeout(function () {
+            location = "https://github.com/IonicaBizau/Color-Puzzle";
+        }, 1000);
         speech.stop();
         return;
     }
