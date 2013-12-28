@@ -177,14 +177,17 @@ function nextTest () {
 var loading = false;
 function checkAnswer(guess) {
 
+    guess = guess.trim();
+    
     // if loading, try again latter
-    if (loading) { return; }
+    if (!guess || loading) { return; }
 
     // use levenstein algorithm to see if the answer is good
     if (levDist(guess.toUpperCase(), current.color.name[speech.lang]) < 3) {
 
         // yes, correct
         $(".info").text(messages[0][speech.lang]);
+        $(".color-panel").html('<i class="smile icon"></i>');
 
         // loading true
         loading = true;
@@ -204,7 +207,10 @@ function checkAnswer(guess) {
     } else {
         // incorrect answer
         $(".info").text(messages[1][speech.lang]);
+        $(".color-panel").html('<i class="frown icon"></i>');
     }
+
+    $(".color-panel i.icon").stop(true).transition('tada');
 }
 
 /*

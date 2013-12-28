@@ -16,7 +16,12 @@ h1.title {
 }
 
 .color-panel {
-    height: 500px;
+    padding: 110px;
+}
+
+.color-panel i.icon {
+    margin: 0;
+    font-size: 170px;
 }
 
 a i.icon {
