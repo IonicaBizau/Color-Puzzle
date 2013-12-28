@@ -20,7 +20,7 @@ h1.title {
 }
 
 .color-panel i.icon {
-    margin: 0;
+    width: 100%;
     font-size: 170px;
 }
 
