@@ -3,13 +3,57 @@
     <head>
         <meta charset="UTF-8">
         <title>Color Puzzle</title>
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/0.10.0/css/semantic.min.css">
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="style.css">
         <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/0.10.0/javascript/semantic.min.js"></script>
     </head>
     <body>
-        <select class="language">
-            <option value="en-US">English</option>
-            <option value="ro-RO">Română</option>
-        </select>
+        <div class="ui page grid overview segment">
+            <div class="wide column center">
+                <h1 class="title">Color Puzzle</h1>
+
+                <div class="hide-after-start">
+                    <p>1. First of all, select your language.</p>
+
+                    <div class="ui selection dropdown select-language">
+                        <input name="language" type="hidden">
+                        <div class="text">English</div>
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <div class="item active" data-value="en-US">English</div>
+                            <div class="item" data-value="ro-RO">Română</div>
+                        </div>
+                    </div>
+
+                    <p>2. Click the following button and the game will start.</p>
+
+                    <button class="ui teal massive right labeled icon button start">
+                        Start <i class="tiny right long arrow icon"></i>
+                    </button>
+                </div>
+
+                <div class="ui piled segment show-after-start">
+                    <div class="color-panel"></div>
+                    <div class="info">Microphone needed, please click the Allow button in the top of the page.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ui modal">
+          <i class="close icon"></i>
+          <div class="header">
+            Not supported
+          </div>
+          <div class="content">
+          </div>
+          <div class="actions">
+            <div class="ui button">OK</div>
+          </div>
+        </div>
+
+        <!--
         <button class="start">Start</button>
         <textarea id="text" name="" cols="30" rows="10"></textarea>
         <style>
@@ -21,6 +65,7 @@
                 font-family: Ubuntu;
             }
         </style>
+        -->
         <script src="main.js"></script>
     </body>
 </html>

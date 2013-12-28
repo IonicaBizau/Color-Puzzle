@@ -1,0 +1,20 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.center {
+    text-align: center !important;
+}
+
+h1.title {
+    font-weight: lighter;
+    font-size: 4em;
+}
+
+.hide-after-start, .show-after-start {
+    display: none;
+}
+
+.color-panel {
+    height: 500px;
+}

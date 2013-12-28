@@ -8,22 +8,27 @@ var SpeechRecognition = window.mozSpeechRecognition     ||
                         window.SpeechRecognition;
 
 // current color
-var current;
-    
-$(".language").on("change", function () {
-    lang = $(this).val();
+var current
+  , lang = "en-US";
+
+$(".select-language").dropdown({
+    onChange: function (value) {
+        lang = value;
+    }
 });
 
 $(".start").on("click", function () {
-        
-    // new instance
-    speech = new SpeechRecognition();
-    speech.lang = lang;
 
-    // and start the speech recognition
-    startSpeechRecognition();
+    $(".hide-after-start").fadeOut(function () {
+        $(".show-after-start").fadeIn();
 
-    $(this).add(".language").hide();
+        // new instance
+        speech = new SpeechRecognition();
+        speech.lang = lang;
+
+        // and start the speech recognition
+        startSpeechRecognition();
+    });
 });
 
 /*
@@ -49,7 +54,7 @@ function startSpeechRecognition() {
 
     // on result handler
     speech.onresult = function(event) {
-        
+
         var message = ''
           , results = event.results;
 
@@ -116,7 +121,7 @@ var possible = [
         }
     }
 ];
-    
+
 var messages = [
     {
         "en-US": "Correct answer",
@@ -127,20 +132,24 @@ var messages = [
         "ro-RO": "Mai incearcă"
     },
     {
-        "en-US": "You won! :-)",
-        "ro-RO": "Ai câștigat! :-)"
+        "en-US": "You won! <i class='smile icon'></i> Don't forget to Start the project.",
+        "ro-RO": "Ai câștigat! <i class='smile icon'></i>"
     }
 ]
 
 /*
  *  Take another color, now
- *  
+ *
  * */
 function nextTest () {
 
+    $(".info").text("");
+
     // if no colors, you won
     if (!possible.length) {
-        alert(messages[2][speech.lang]);
+        $(".ui.modal .header").html('<i class="smile icon"></i>');
+        $(".ui.modal .content").html(messages[2][speech.lang]);
+        $('.ui.modal').modal("show");
         speech.stop();
         return;
     }
@@ -150,12 +159,12 @@ function nextTest () {
 
     // randomized test
     current = possible[i];
-    
+
     // remove this from possible
     possible.splice(i, 1);
 
     // change the backrground
-    $("#text").css("background", current.color.value);
+    $(".color-panel").css("background", current.color.value);
 }
 
 /*
@@ -201,23 +210,17 @@ function checkAnswer(guess) {
  * */
 function detectIfSpeechSupported() {
 
-    var supportMessage;
-
     //  supported
     if (SpeechRecognition) {
-
-        // cool!
-        supportMessage = "Cool!  Your browser supports speech recognition.  Have fun!";
+        $(".hide-after-start").fadeIn();
+        return;
     }
-    // not supported
-    else {
 
-        // sorry...
-        supportMessage = "Sorry... Your browser doesn't support speech recognition yet.  Try Google Chrome version 25.";
-    }
+    // sorry...
+    $(".ui.modal .content").text("Sorry... Your browser doesn't support speech recognition yet.  Try Google Chrome version 25.");
 
     // show the message to the user
-    alert(supportMessage);
+    $('.ui.modal').modal("show");
 }
 
 detectIfSpeechSupported();
@@ -277,3 +280,4 @@ var levDist = function(s, t) {
     // Step 7
     return d[n][m];
 }
+
