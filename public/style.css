@@ -18,3 +18,8 @@ h1.title {
 .color-panel {
     height: 500px;
 }
+
+a i.icon {
+    color: black;
+    text-decoration: none;
+}
