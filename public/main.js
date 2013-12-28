@@ -182,7 +182,7 @@ function checkAnswer(guess) {
     if (levDist(guess.toUpperCase(), current.color.name[speech.lang]) < 3) {
 
         // yes, correct
-        $(".info").val(messages[0][speech.lang]);
+        $(".info").text(messages[0][speech.lang]);
 
         // loading true
         loading = true;
@@ -191,7 +191,7 @@ function checkAnswer(guess) {
         setTimeout(function () {
 
             // empty the textarea
-            $(".info").val("");
+            $(".info").text("");
 
             // loading false
             loading = false;
@@ -201,7 +201,7 @@ function checkAnswer(guess) {
         }, 500);
     } else {
         // incorrect answer
-        $(".info").val(messages[1][speech.lang]);
+        $(".info").text(messages[1][speech.lang]);
     }
 }
 
