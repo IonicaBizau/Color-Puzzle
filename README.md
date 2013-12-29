@@ -1,9 +1,4 @@
-Color-Puzzle
-============
-
-An application that uses the web speech api to provide a short color puzzle.
-
->[![](http://i.imgur.com/fo7kf5M.png)](http://ionicabizau.github.io/Color-Puzzle/)
+[<img src="http://i.imgur.com/fo7kf5M.png" width="100%">](http://ionicabizau.github.io/Color-Puzzle/)
 
 ## Online demo
 
