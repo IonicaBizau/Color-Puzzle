@@ -1,15 +1,15 @@
 {
   "name": "color-puzzle",
   "version": "0.0.0",
-  "description": "",
+  "description": "An application that uses the web speech api to provide a short color puzzle.",
   "main": "index.js",
-  "author": "Ionica Bizau <bizauionica@gmail.com>",
-  "license": "ISC",
+  "author": "Ionică Bizău <bizauionica@gmail.com>",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/iambrandonn/FlashCards/issues"
+    "url": "https://github.com/IonicaBizau/Color-Puzzle/issues"
   },
   "dependencies": {
     "node-static": "*"
   },
-  "homepage": "https://github.com/iambrandonn/FlashCards"
+  "homepage": "https://github.com/IonicaBizau/Color-Puzzle"
 }
