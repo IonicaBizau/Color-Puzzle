@@ -10,6 +10,6 @@ You can test the application [here](http://ionicabizau.github.io/Color-Puzzle/).
  - [Semantic UI](http://semantic-ui.com/)
  - [Open Sans](http://opensans.com/)
 
-## Copyiright
+## Copyright
 
 See the LICENSE file.
