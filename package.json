@@ -1,15 +1,33 @@
 {
   "name": "color-puzzle",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "An application that uses the web speech api to provide a short color puzzle.",
   "main": "index.js",
-  "author": "Ionică Bizău <bizauionica@gmail.com>",
-  "license": "MIT",
+  "author": "Ionică Bizău <bizauionica@gmail.com> (http://ionicabizau.net)",
+  "license": "KINDLY",
   "bugs": {
     "url": "https://github.com/IonicaBizau/Color-Puzzle/issues"
   },
   "dependencies": {
     "node-static": "*"
   },
-  "homepage": "https://github.com/IonicaBizau/Color-Puzzle"
+  "homepage": "https://github.com/IonicaBizau/Color-Puzzle",
+  "blah": {
+    "h_img": "http://i.imgur.com/fo7kf5M.png",
+    "h_url": "http://ionicabizau.github.io/Color-Puzzle/",
+    "installation": [
+      {
+        "h2": "Demo"
+      },
+      {
+        "p": "You can test the application [here](http://ionicabizau.github.io/Color-Puzzle/)."
+      }
+    ],
+    "thanks": [
+      "[iambrandonn](https://github.com/iambrandonn/FlashCards)",
+      "[Semantic UI](http://semantic-ui.com/)",
+      "[Open Sans](http://opensans.com/)"
+    ],
+    "license_year": "2013\n"
+  }
 }
