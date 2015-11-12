@@ -1,6 +1,6 @@
 {
   "name": "color-puzzle",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "An application that uses the web speech api to provide a short color puzzle.",
   "main": "index.js",
   "author": "Ionică Bizău <bizauionica@gmail.com> (http://ionicabizau.net)",
