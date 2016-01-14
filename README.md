@@ -1,8 +1,8 @@
 [![color-puzzle](http://i.imgur.com/fo7kf5M.png)](http://ionicabizau.github.io/Color-Puzzle/)
 
-# color-puzzle [![Support this project][donate-now]][paypal-donations]
+# color-puzzle [![PayPal](https://img.shields.io/badge/%24-paypal-f39c12.svg)][paypal-donations] [![Version](https://img.shields.io/npm/v/color-puzzle.svg)](https://www.npmjs.com/package/color-puzzle) [![Downloads](https://img.shields.io/npm/dt/color-puzzle.svg)](https://www.npmjs.com/package/color-puzzle) [![Get help on Codementor](https://cdn.codementor.io/badges/get_help_github.svg)](https://www.codementor.io/johnnyb?utm_source=github&utm_medium=button&utm_term=johnnyb&utm_campaign=github)
 
-An application that uses the web speech api to provide a short color puzzle.
+> An application that uses the web speech api to provide a short color puzzle.
 
 ## Demo
 

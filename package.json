@@ -1,6 +1,6 @@
 {
   "name": "color-puzzle",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "An application that uses the web speech api to provide a short color puzzle.",
   "main": "index.js",
   "author": "Ionică Bizău <bizauionica@gmail.com> (http://ionicabizau.net)",
@@ -29,5 +29,17 @@
       "[Open Sans](http://opensans.com/)"
     ],
     "license_year": "2013\n"
-  }
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IonicaBizau/Color-Puzzle.git"
+  },
+  "keywords": [
+    "puzzle",
+    "color"
+  ]
 }
