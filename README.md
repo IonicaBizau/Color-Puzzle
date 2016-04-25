@@ -1,3 +1,4 @@
+
 [![color-puzzle](http://i.imgur.com/fo7kf5M.png)](http://ionicabizau.github.io/Color-Puzzle/)
 
 # color-puzzle [![PayPal](https://img.shields.io/badge/%24-paypal-f39c12.svg)][paypal-donations] [![Version](https://img.shields.io/npm/v/color-puzzle.svg)](https://www.npmjs.com/package/color-puzzle) [![Downloads](https://img.shields.io/npm/dt/color-puzzle.svg)](https://www.npmjs.com/package/color-puzzle) [![Get help on Codementor](https://cdn.codementor.io/badges/get_help_github.svg)](https://www.codementor.io/johnnyb?utm_source=github&utm_medium=button&utm_term=johnnyb&utm_campaign=github)
@@ -8,15 +9,17 @@
 
 You can test the application [here](http://ionicabizau.github.io/Color-Puzzle/).
 
-## How to contribute
+
+## :yum: How to contribute
 Have an idea? Found a bug? See [how to contribute][contributing].
 
-## Thanks
+## :cake: Thanks
 [iambrandonn](https://github.com/iambrandonn/FlashCards)
 [Semantic UI](http://semantic-ui.com/)
 [Open Sans](http://opensans.com/)
 
-## License
+
+## :scroll: License
 
 [MIT][license] © [Ionică Bizău][website]
 
