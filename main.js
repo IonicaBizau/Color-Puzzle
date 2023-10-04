@@ -1,293 +1,187 @@
-/*
- *  Get speechrecognition
- * */
-var SpeechRecognition = window.mozSpeechRecognition     ||
-                        window.msSpeechRecognition      ||
-                        window.oSpeechRecognition       ||
-                        window.webkitSpeechRecognition  ||
-                        window.SpeechRecognition;
+$(document).ready(function () {
+    // Variables
+    let lang = "en-US"; // Changed from 'var' to 'let' for block-level scope.
+    let currentColor; // Changed from 'var' to 'let' for block-level scope.
+    let speech; // Changed from 'var' to 'let' for block-level scope.
 
-// current color
-var current
-  , lang = "en-US";
+    // DOM Elements
+    const $selectLanguage = $(".select-language"); // Changed from 'var' to 'const' for constant reference.
+    const $startButton = $(".start"); // Changed from 'var' to 'const' for constant reference.
+    const $hideAfterStart = $(".hide-after-start"); // Changed from 'var' to 'const' for constant reference.
+    const $showAfterStart = $(".show-after-start"); // Changed from 'var' to 'const' for constant reference.
+    const $info = $(".info"); // Changed from 'var' to 'const' for constant reference.
+    const $colorPanel = $(".color-panel"); // Changed from 'var' to 'const' for constant reference.
+    const $modal = $('.ui.modal'); // Changed from 'var' to 'const' for constant reference.
 
-$(".select-language").dropdown({
-    onChange: function (value) {
-        lang = value;
-    }
-});
+    // Messages
+    const messages = {
+        "en-US": ["Correct answer", "Try again...", "You won! <i class='smile icon'></i> Don't forget to Start the project."],
+        "ro-RO": ["Răspuns corect", "Mai încearcă...", "Ai câștigat! <i class='smile icon'></i> Nu uita să începi proiectul."],
+    };
 
-$(".start").on("click", function () {
+    // Language Change Event
+    $selectLanguage.dropdown({
+        onChange: function (value) {
+            lang = value;
+        }
+    });
 
-    $(".hide-after-start").fadeOut(function () {
-        $(".show-after-start").fadeIn();
+    // Start Voice Recognition
+    $startButton.on("click", function () {
+        $hideAfterStart.fadeOut(function () {
+            $showAfterStart.fadeIn();
+            startSpeechRecognition();
+        });
+    });
 
-        // new instance
+    // Start Voice Recognition
+    function startSpeechRecognition() {
         speech = new SpeechRecognition();
         speech.lang = lang;
+        speech.continuous = true;
+        speech.interimResults = true;
 
-        // and start the speech recognition
-        startSpeechRecognition();
-    });
-});
+        speech.onstart = function () {
+            nextTest();
+        };
 
-/*
- *  Start the speech recognition
- *
- * */
-function startSpeechRecognition() {
+        speech.onresult = function (event) {
+            let message = '';
+            let results = event.results;
 
-    // settings
-    speech.continuous = true;
-    speech.interimResults = true;
-
-    // on start handler
-    speech.onstart = function() {
-
-        // next test
-        nextTest();
-    };
-
-    var data = "";
-
-    var timer;
-
-    // on result handler
-    speech.onresult = function(event) {
-
-        var message = ''
-          , results = event.results;
-
-        // create the message
-        for (var i = event.resultIndex; i < results.length; i++) {
-            if (!results[i].isFinal) {
-                message += results[i][0].transcript;
+            for (let i = event.resultIndex; i < results.length; i++) {
+                if (!results[i].isFinal) {
+                    message += results[i][0].transcript;
+                }
             }
-        }
 
-        // check the answer
-        checkAnswer(message);
-    };
+            checkAnswer(message);
+        };
 
-    // start the speech
-    speech.start();
-}
+        speech.start();
+    }
 
-// possible colors
-var possible = [
-    {
-        color: {
-            name: {
-                "ro-RO": "ROSU",
-                "en-US": "RED"
-            },
+    // Possible Colors
+    const possibleColors = [
+        {
+            name: { "ro-RO": "ROSU", "en-US": "RED" },
             value: "red"
-        }
-    },
-    {
-        color: {
-            name: {
-                "ro-RO": "PORTOCALIU",
-                "en-US": "ORANGE"
-            },
+        },
+        {
+            name: { "ro-RO": "PORTOCALIU", "en-US": "ORANGE" },
             value: "orange"
-        }
-    },
-    {
-        color: {
-            name: {
-                "ro-RO": "GALBEN",
-                "en-US": "YELLOW"
-            },
+        },
+        {
+            name: { "ro-RO": "GALBEN", "en-US": "YELLOW" },
             value: "yellow"
-        }
-    },
-    {
-        color: {
-            name: {
-                "ro-RO": "VERDE",
-                "en-US": "GREEN"
-            },
+        },
+        {
+            name: { "ro-RO": "VERDE", "en-US": "GREEN" },
             value: "green"
-        }
-    },
-    {
-        color: {
-            name: {
-                "ro-RO": "ALBASTRU",
-                "en-US": "BLUE"
-            },
+        },
+        {
+            name: { "ro-RO": "ALBASTRU", "en-US": "BLUE" },
             value: "blue"
         }
-    }
-];
+    ];
 
-var messages = [
-    {
-        "en-US": "Correct answer",
-        "ro-RO": "Răspuns corect"
-    },
-    {
-        "en-US": "Try again...",
-        "ro-RO": "Mai incearcă"
-    },
-    {
-        "en-US": "You won! <i class='smile icon'></i> Don't forget to Start the project.",
-        "ro-RO": "Ai câștigat! <i class='smile icon'></i>"
-    }
-]
+    // Start Next Test
+    function nextTest() {
+        $info.text("");
+        if (possibleColors.length === 0) {
+            $modal.find('.header').html('<i class="smile icon"></i>');
+            $modal.find('.content').html(messages[lang][2]);
+            $modal.modal("show");
+            setTimeout(function () {
+                window.location.href = "https://github.com/IonicaBizau/Color-Puzzle";
+            }, 1000);
+            speech.stop();
+            return;
+        }
 
-/*
- *  Take another color, now
- *
- * */
-function nextTest () {
-
-    $(".info").text("");
-
-    // if no colors, you won
-    if (!possible.length) {
-        $(".ui.modal .header").html('<i class="smile icon"></i>');
-        $(".ui.modal .content").html(messages[2][speech.lang]);
-        $('.ui.modal').modal("show");
-        setTimeout(function () {
-            location = "https://github.com/IonicaBizau/Color-Puzzle";
-        }, 1000);
-        speech.stop();
-        return;
+        let randomIndex = Math.floor(Math.random() * possibleColors.length);
+        currentColor = possibleColors[randomIndex];
+        possibleColors.splice(randomIndex, 1);
+        $colorPanel.css("background", currentColor.value);
     }
 
-    // index
-    var i = Math.floor(Math.random() * possible.length);
+    // Check Answer
+    function checkAnswer(guess) {
+        guess = guess.trim();
 
-    // randomized test
-    current = possible[i];
+        if (!guess || guess.length <= 2) {
+            return;
+        }
 
-    // remove this from possible
-    possible.splice(i, 1);
+        let correctColorName = currentColor.name[lang].toUpperCase();
+        let distance = levDist(guess.toUpperCase(), correctColorName);
 
-    // change the backrground
-    $(".color-panel").css("background", current.color.value);
-}
+        if (distance < 3) {
+            $info.text(messages[lang][0]);
+            $colorPanel.html('<i class="smile icon"></i>');
+            setTimeout(function () {
+                $info.text("");
+                nextTest();
+            }, 500);
+        } else {
+            $info.text(messages[lang][1]);
+            $colorPanel.html('<i class="frown icon"></i>');
+        }
 
-/*
- *  This checks if the answer is ok
- *
- * */
-var loading = false;
-function checkAnswer(guess) {
-
-    // trim
-    guess = guess.trim();
-
-    // if loading, try again latter
-    if (!guess || loading || guess.length <= 2) { return; }
-
-    // use levenstein algorithm to see if the answer is good
-    if (levDist(guess.toUpperCase(), current.color.name[speech.lang]) < 3) {
-
-        // yes, correct
-        $(".info").text(messages[0][speech.lang]);
-        $(".color-panel").html('<i class="smile icon"></i>');
-
-        // loading true
-        loading = true;
-
-        // timeout
-        setTimeout(function () {
-
-            // empty the textarea
-            $(".info").text("");
-
-            // loading false
-            loading = false;
-
-            // next test
-            nextTest();
-        }, 500);
-    } else {
-        // incorrect answer
-        $(".info").text(messages[1][speech.lang]);
-        $(".color-panel").html('<i class="frown icon"></i>');
+        $colorPanel.find("i.icon").stop(true).transition('tada');
     }
 
-    $(".color-panel i.icon").stop(true).transition('tada');
-}
-
-/*
- *  Is speech suported?
- *
- * */
-function detectIfSpeechSupported() {
-
-    //  supported
-    if (SpeechRecognition) {
-        $(".hide-after-start").fadeIn();
-        return;
-    }
-
-    // sorry...
-    $(".ui.modal .content").text("Sorry... Your browser doesn't support speech recognition yet.  Try Google Chrome version 25.");
-
-    // show the message to the user
-    $('.ui.modal').modal("show");
-}
-
-detectIfSpeechSupported();
-
-
-// Thanks!
-// http://stackoverflow.com/a/11958496/1420197
-//
-// Levenshtein Distance
-var levDist = function(s, t) {
-    var d = []; //2d matrix
-
-    // Step 1
-    var n = s.length;
-    var m = t.length;
-
-    if (n == 0) return m;
-    if (m == 0) return n;
-
-    //Create an array of arrays in javascript (a descending loop is quicker)
-    for (var i = n; i >= 0; i--) d[i] = [];
-
-    // Step 2
-    for (var i = n; i >= 0; i--) d[i][0] = i;
-    for (var j = m; j >= 0; j--) d[0][j] = j;
-
-    // Step 3
-    for (var i = 1; i <= n; i++) {
-        var s_i = s.charAt(i - 1);
-
-        // Step 4
-        for (var j = 1; j <= m; j++) {
-
-            //Check the jagged ld total so far
-            if (i == j && d[i][j] > 4) return n;
-
-            var t_j = t.charAt(j - 1);
-            var cost = (s_i == t_j) ? 0 : 1; // Step 5
-
-            //Calculate the minimum
-            var mi = d[i - 1][j] + 1;
-            var b = d[i][j - 1] + 1;
-            var c = d[i - 1][j - 1] + cost;
-
-            if (b < mi) mi = b;
-            if (c < mi) mi = c;
-
-            d[i][j] = mi; // Step 6
-
-            //Damerau transposition
-            if (i > 1 && j > 1 && s_i == t.charAt(j - 2) && s.charAt(i - 2) == t_j) {
-                d[i][j] = Math.min(d[i][j], d[i - 2][j - 2] + cost);
-            }
+    // Check if Speech Recognition is Supported
+    function detectIfSpeechSupported() {
+        if (!SpeechRecognition) {
+            $modal.find('.content').text("Sorry... Your browser doesn't support speech recognition yet. Try Google Chrome version 25.");
+            $modal.modal("show");
+        } else {
+            $hideAfterStart.fadeIn();
         }
     }
 
-    // Step 7
-    return d[n][m];
-}
+    // Levenshtein Distance Function
+    const levDist = function (s, t) {
+        let d = [];
+        let n = s.length;
+        let m = t.length;
 
+        if (n === 0) return m;
+        if (m === 0) return n;
+
+        for (let i = n; i >= 0; i--) d[i] = [];
+
+        for (let i = n; i >= 0; i--) d[i][0] = i;
+        for (let j = m; j >= 0; j--) d[0][j] = j;
+
+        for (let i = 1; i <= n; i++) {
+            let s_i = s.charAt(i - 1);
+
+            for (let j = 1; j <= m; j++) {
+                if (i == j && d[i][j] > 4) return n;
+
+                let t_j = t.charAt(j - 1);
+                let cost = (s_i == t_j) ? 0 : 1;
+
+                let mi = d[i - 1][j] + 1;
+                let b = d[i][j - 1] + 1;
+                let c = d[i - 1][j - 1] + cost;
+
+                if (b < mi) mi = b;
+                if (c < mi) mi = c;
+
+                d[i][j] = mi;
+
+                if (i > 1 && j > 1 && s_i == t.charAt(j - 2) && s.charAt(i - 2) == t_j) {
+                    d[i][j] = Math.min(d[i][j], d[i - 2][j - 2] + cost);
+                }
+            }
+        }
+
+        return d[n][m];
+    };
+
+    // Start Speech Recognition Support Detection
+    detectIfSpeechSupported();
+});
